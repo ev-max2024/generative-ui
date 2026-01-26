@@ -27,7 +27,7 @@
 
 <br />
 
-This repository walks through how CopilotKit works together with agentic UI protocols (AG-UI, A2UI, MCP Apps) to enable Generative UI in practice.
+This repository walks through how agentic UI protocols (AG-UI, A2UI, MCP Apps) enable Generative UI patterns (Static, Declarative, Open-ended) and how to implement them using CopilotKit.
 
 ---
 
@@ -106,7 +106,7 @@ Two common declarative specifications used for Generative UI are A2UI and Open-J
 For example, an agent can respond with an Open‑JSON‑UI payload that describes a UI “card” in JSON and the frontend renders it.
 
 ```js
-// Example: Agent returns Open-JSON-UI specification
+// Example (illustrative): Agent returns a declarative Open-JSON-UI–style specification
 {
   type: "open-json-ui",
   spec: {
@@ -191,11 +191,11 @@ https://github.com/user-attachments/assets/0e2d9f3b-16c5-4556-bc10-fe0643cebdc3
 
 Contributions welcome: PRs adding examples (Static/Declarative/Open‑ended), improving explanations or adding assets.
 
-[Discord](https://discord.com/invite/6dffbvGU3D) for help and discussions. [GitHub](https://github.com/CopilotKit/CopilotKit) to contribute. @CopilotKit for updates.
+[Discord](https://discord.com/invite/6dffbvGU3D) for help and discussions. [GitHub](https://github.com/CopilotKit/CopilotKit) to contribute. [@CopilotKit](https://x.com/copilotkit) for updates.
 
 | Project | Preview | Description | Links |
 | ------- | ------- | ----------- | ----- |
-| [name of project](deployed url) by [@xyz](github profile link) | <img src="" alt="" width="300"> | description... | [GitHub](repo) • [Demo](deployed) |
+| Generative UI Playground | <img src="https://github.com/user-attachments/assets/56e4a9af-c51e-407e-abcc-42aca6dba647" alt="genui demo app" width="300"> | Shows the three Gen UI patterns with runnable, end-to-end examples. | [GitHub Repo](https://go.copilotkit.ai/gen-ui-repo-playground) • [Demo](go.copilotkit.ai/gen-ui-demo) |
 
 Built something? [Open a PR](https://github.com/CopilotKit/CopilotKit/pulls) or [share it in Discord](https://discord.com/invite/6dffbvGU3D).
 
