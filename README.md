@@ -20,10 +20,21 @@
   </p>
 
   <p>Build apps that adapt to your users.</p>
+</div>
+
+  ## Generative UI Resources
+
+- [What is Generative UI?](#what-is-generative-ui)
+- [Static Generative UI (AG-UI)](#static-generative-ui-ag-ui)
+- [Declarative Generative UI (A2UI + Open-JSON-UI)](#declarative-generative-ui-a2ui--open-json-ui)
+- [Open-ended Generative UI (MCP Apps)](#open-ended-generative-ui-mcp-apps)
+- [Generative UI Playground](#generative-ui-playground)
+- [Blogs](#generative-ui-playground)
+- [Contributing](#-contributions-are-welcome)
+
+
 
 https://github.com/user-attachments/assets/f2f52fae-c9c6-4da5-8d29-dc99b202a7ad
-
-</div>
 
 <br />
 
@@ -187,6 +198,8 @@ Get Started:
 - Repo: [go.copilotkit.ai/gen-ui-repo-playground](https://go.copilotkit.ai/gen-ui-repo-playground)
 
 https://github.com/user-attachments/assets/f2f52fae-c9c6-4da5-8d29-dc99b202a7ad
+
+## Blogs
 
 ---
 
