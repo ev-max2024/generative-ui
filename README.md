@@ -212,6 +212,14 @@ https://github.com/user-attachments/assets/f2f52fae-c9c6-4da5-8d29-dc99b202a7ad
 
 ## Blogs
 
+- [Agent Factory: The new era of agentic AI—common use cases and design patterns](https://azure.microsoft.com/en-us/blog/agent-factory-the-new-era-of-agentic-ai-common-use-cases-and-design-patterns/)
+- [Agentic AI vs AI Agents: A Deep Dive](https://uibakery.io/blog/agentic-ai-vs-ai-agents)
+- [Introducing Agentic UI Interfaces: A Tactical Executive Guide](https://akfpartners.com/growth-blog/introducing-agentic-ui-interfaces-a-tactical-executive-guide)
+- [Introducing A2UI: An open project for agent-driven interfaces](https://developers.googleblog.com/introducing-a2ui-an-open-project-for-agent-driven-interfaces/)
+- [From products to systems: The agentic AI shift](https://uxdesign.cc/from-products-to-systems-the-agentic-ai-shift-eaf6a7180c43)
+- [Generative UI: A rich, custom, visual interactive user experience for any prompt](https://research.google/blog/generative-ui-a-rich-custom-visual-interactive-user-experience-for-any-prompt/)
+- [The State of Agentic UI: Comparing AG-UI, MCP-UI, and A2A Protocols](https://www.copilotkit.ai/blog/the-state-of-agentic-ui-comparing-ag-ui-mcp-ui-and-a2ui-protocols)
+
 ---
 
 ## 🤝 Contributions are welcome
