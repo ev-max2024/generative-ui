@@ -69,7 +69,7 @@ The rest of this repo walks through each pattern from most constrained to most o
 
 ## Static Generative UI (AG-UI)
 
-<img width="971" height="541" alt="image" src="https://github.com/user-attachments/assets/7d503eed-7593-4966-8699-d9e43002a893" />
+<img width="977" height="548" alt="image" src="https://github.com/user-attachments/assets/54b3fcf3-c6f3-4ab4-9ea4-174dd9abdce9" />
 
 Static Generative UI means you pre-build UI components, and the agent chooses which component to show and passes it the data it needs. 
 
