@@ -27,7 +27,7 @@
 - [What is Generative UI?](#what-is-generative-ui)
 - [The 3 types of Generative UI](#the-3-types-of-generative-ui)
   - [Static Generative UI (AG-UI)](#static-generative-ui-ag-ui)
-  - [Declarative Generative UI (A2UI + Open-JSON-UI)](#declarative-generative-ui-a2ui--open-json-ui)
+  - [Declarative Generative UI (A2UI + Open-JSON-UI)](#declarative-generative-ui-a2ui--openjsonui)
   - [Open-ended Generative UI (MCP Apps)](#open-ended-generative-ui-mcp-apps)
 - [Generative UI Playground](#generative-ui-playground)
 - [Blogs](#blogs)
@@ -53,9 +53,9 @@ Instead of only generating text, agents can send UI state, structured UI specs, 
 
 In the CopilotKit ecosystem, Generative UI is approached in three practical patterns, implemented using different agentic UI protocols and specifications that define how agents communicate UI updates to applications:
 
-- Static Generative UI → AG-UI
-- Declarative Generative UI → [A2UI](https://docs.copilotkit.ai/generative-ui-specs/a2ui), [Open-JSON-UI](https://docs.copilotkit.ai/generative-ui-specs/open-json-ui)
-- Open-ended Generative UI → [MCP Apps](https://docs.copilotkit.ai/generative-ui-specs/mcp-apps) / Custom UIs
+- Static Generative UI (high control, low freedom) → AG-UI
+- Declarative Generative UI (shared control) → [A2UI](https://docs.copilotkit.ai/generative-ui/specs/a2ui), [Open-JSON-UI](https://docs.copilotkit.ai/generative-ui/specs/open-json-ui)
+- Open-ended Generative UI (low control, high freedom) → [MCP Apps](https://docs.copilotkit.ai/generative-ui/specs/mcp-apps) / Custom UIs
 
 [AG-UI (Agent-User Interaction Protocol)](https://github.com/ag-ui-protocol/ag-ui) serves as the bidirectional runtime interaction layer beneath these patterns, providing the agent ↔ application connection that enables Generative UI and works uniformly across A2UI, MCP Apps, Open-JSON-UI, and custom UI specifications.
 
@@ -112,7 +112,7 @@ useFrontendTool({
 
 - Try it out: [go.copilotkit.ai/gen-ui-demo](https://go.copilotkit.ai/gen-ui-demo)
 - Docs: [docs.copilotkit.ai/generative-ui](https://docs.copilotkit.ai/generative-ui)
-- Specs hub (overview): [docs.copilotkit.ai/generative-ui-specs](https://docs.copilotkit.ai/generative-ui-specs)
+- Specs hub (overview): [docs.copilotkit.ai/generative-ui/specs](https://docs.copilotkit.ai/generative-ui/specs)
 - Ecosystem (how specs + runtime fit): [copilotkit.ai/generative-ui](https://www.copilotkit.ai/generative-ui)
 
 -- demo --
@@ -129,7 +129,7 @@ Two common declarative specifications used for Generative UI are A2UI and Open-J
 
 1) [A2UI](https://github.com/google/A2UI) → declarative Generative UI spec from Google, described as JSONL-based and streaming, designed for platform-agnostic rendering
 
-2) [Open‑JSON‑UI](https://docs.copilotkit.ai/generative-ui-specs/open-json-ui) → open standardization of OpenAI’s internal declarative Generative UI schema
+2) [Open‑JSON‑UI](https://docs.copilotkit.ai/generative-ui/specs/open-json-ui) → open standardization of OpenAI’s internal declarative Generative UI schema
 
 For example, an agent can respond with an Open‑JSON‑UI payload that describes a UI “card” in JSON and the frontend renders it.
 
@@ -154,8 +154,8 @@ For example, an agent can respond with an Open‑JSON‑UI payload that describe
 
 - Try it out: [go.copilotkit.ai/gen-ui-demo](https://go.copilotkit.ai/gen-ui-demo)
 - Docs: [docs.copilotkit.ai/generative-ui](https://docs.copilotkit.ai/generative-ui)
-- Open‑JSON‑UI Specs (CopilotKit docs): [docs.copilotkit.ai/generative-ui-specs/open-json-ui](https://docs.copilotkit.ai/generative-ui-specs/open-json-ui)
-- A2UI Specs (CopilotKit docs): [docs.copilotkit.ai/generative-ui-specs/a2ui](https://docs.copilotkit.ai/generative-ui-specs/a2ui)
+- Open‑JSON‑UI Specs (CopilotKit docs): [docs.copilotkit.ai/generative-ui/specs/open-json-ui](https://docs.copilotkit.ai/generative-ui/specs/open-json-ui)
+- A2UI Specs (CopilotKit docs): [docs.copilotkit.ai/generative-ui/specs/a2ui](https://docs.copilotkit.ai/generative-ui/specs/a2ui)
 - Ecosystem (how specs + runtime fit): https://www.copilotkit.ai/generative-ui
 - How AG‑UI and A2UI fit together: [copilotkit.ai/ag-ui-and-a2ui](https://www.copilotkit.ai/ag-ui-and-a2ui)
 
@@ -193,7 +193,7 @@ const agent = new BuiltInAgent({
 
 - Try it out: [go.copilotkit.ai/gen-ui-demo](https://go.copilotkit.ai/gen-ui-demo)
 - Docs: [docs.copilotkit.ai/generative-ui](https://docs.copilotkit.ai/generative-ui)
-- MCP Apps spec: [docs.copilotkit.ai/generative-ui-specs/mcp-apps](https://docs.copilotkit.ai/generative-ui-specs/mcp-apps)
+- MCP Apps spec: [docs.copilotkit.ai/generative-ui/specs/mcp-apps](https://docs.copilotkit.ai/generative-ui/specs/mcp-apps)
 - Practical guide (complete integration flow): [Bring MCP Apps into your OWN app with CopilotKit & AG-UI](https://www.copilotkit.ai/blog/bring-mcp-apps-into-your-own-app-with-copilotkit-and-ag-ui)
 
 ---
@@ -202,11 +202,6 @@ const agent = new BuiltInAgent({
 
 The Generative UI Playground is a hands-on environment for exploring how all three patterns work in practice and see how agent outputs map to UI in real time.
 
-Get Started:
-```
-
-```
-
 - Try it out: [go.copilotkit.ai/gen-ui-demo](https://go.copilotkit.ai/gen-ui-demo)
 - Repo: [go.copilotkit.ai/gen-ui-repo-playground](https://go.copilotkit.ai/gen-ui-repo-playground)
 
@@ -214,13 +209,15 @@ https://github.com/user-attachments/assets/f2f52fae-c9c6-4da5-8d29-dc99b202a7ad
 
 ## Blogs
 
-- [Agent Factory: The new era of agentic AI—common use cases and design patterns](https://azure.microsoft.com/en-us/blog/agent-factory-the-new-era-of-agentic-ai-common-use-cases-and-design-patterns/)
-- [Agentic AI vs AI Agents: A Deep Dive](https://uibakery.io/blog/agentic-ai-vs-ai-agents)
-- [Introducing Agentic UI Interfaces: A Tactical Executive Guide](https://akfpartners.com/growth-blog/introducing-agentic-ui-interfaces-a-tactical-executive-guide)
-- [Introducing A2UI: An open project for agent-driven interfaces](https://developers.googleblog.com/introducing-a2ui-an-open-project-for-agent-driven-interfaces/)
-- [From products to systems: The agentic AI shift](https://uxdesign.cc/from-products-to-systems-the-agentic-ai-shift-eaf6a7180c43)
-- [Generative UI: A rich, custom, visual interactive user experience for any prompt](https://research.google/blog/generative-ui-a-rich-custom-visual-interactive-user-experience-for-any-prompt/)
-- [The State of Agentic UI: Comparing AG-UI, MCP-UI, and A2A Protocols](https://www.copilotkit.ai/blog/the-state-of-agentic-ui-comparing-ag-ui-mcp-ui-and-a2ui-protocols)
+- [Agent Factory: The new era of agentic AI: common use cases and design patterns](https://azure.microsoft.com/en-us/blog/agent-factory-the-new-era-of-agentic-ai-common-use-cases-and-design-patterns/) - By Microsoft Azure
+- [Agentic AI vs AI Agents: A Deep Dive](https://uibakery.io/blog/agentic-ai-vs-ai-agents) - UI Bakery
+- [Introducing Agentic UI Interfaces: A Tactical Executive Guide](https://akfpartners.com/growth-blog/introducing-agentic-ui-interfaces-a-tactical-executive-guide) - AKF Partners
+- [Introducing A2UI: An open project for agent-driven interfaces](https://developers.googleblog.com/introducing-a2ui-an-open-project-for-agent-driven-interfaces/) - Google Developers
+- [From products to systems: The agentic AI shift](https://uxdesign.cc/from-products-to-systems-the-agentic-ai-shift-eaf6a7180c43) - UX Collective
+- [Generative UI: A rich, custom, visual interactive user experience for any prompt](https://research.google/blog/generative-ui-a-rich-custom-visual-interactive-user-experience-for-any-prompt/) - Google Research
+- [The State of Agentic UI: Comparing AG-UI, MCP-UI, and A2A Protocols](https://www.copilotkit.ai/blog/the-state-of-agentic-ui-comparing-ag-ui-mcp-ui-and-a2ui-protocols) - CopilotKit
+- [The Three Types of Generative UI: Static, Declarative and Fully Generated](https://www.copilotkit.ai/blog/the-three-kinds-of-generative-ui) - CopilotKit
+- [Generative UI Guide 2025: 15 Best Practices & Examples](https://www.mockplus.com/blog/post/gui-guide) - Mockplus
 
 ## Videos
 
@@ -228,7 +225,6 @@ https://github.com/user-attachments/assets/f2f52fae-c9c6-4da5-8d29-dc99b202a7ad
 - [Generative vs Agentic AI: Shaping the Future of AI Collaboration](https://www.youtube.com/watch?v=EDb37y_MhRw)
 - [What is Agentic AI? An Easy Explanation For Everyone](https://www.youtube.com/watch?v=-pqzyvRp3Tc)
 - [What is Agentic AI and How Does it Work?](https://www.youtube.com/watch?v=15_pppse4fY)
-
 
 
 ---
@@ -241,7 +237,7 @@ Contributions welcome: PRs adding examples (Static/Declarative/Open‑ended), im
 
 | Project | Preview | Description | Links |
 | ------- | ------- | ----------- | ----- |
-| Generative UI Playground | <img src="https://github.com/user-attachments/assets/56e4a9af-c51e-407e-abcc-42aca6dba647" alt="genui demo app" width="300"> | Shows the three Gen UI patterns with runnable, end-to-end examples. | [GitHub Repo](https://go.copilotkit.ai/gen-ui-repo-playground) • [Demo](go.copilotkit.ai/gen-ui-demo) |
+| Generative UI Playground | <img src="https://github.com/user-attachments/assets/7e34dc2f-ba49-416d-9726-b3a5efa0223a" alt="genui demo app" width="300"> | Shows the three Gen UI patterns with runnable, end-to-end examples. | [Repo](https://go.copilotkit.ai/gen-ui-repo-playground)<br>[Demo](go.copilotkit.ai/gen-ui-demo) |
 
 Built something? [Open a PR](https://github.com/CopilotKit/CopilotKit/pulls) or [share it in Discord](https://discord.com/invite/6dffbvGU3D).
 
