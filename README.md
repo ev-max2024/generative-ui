@@ -115,8 +115,6 @@ useFrontendTool({
 - Specs hub (overview): [docs.copilotkit.ai/generative-ui/specs](https://docs.copilotkit.ai/generative-ui/specs)
 - Ecosystem (how specs + runtime fit): [copilotkit.ai/generative-ui](https://www.copilotkit.ai/generative-ui)
 
--- demo --
-
 ---
 
 ## Declarative Generative UI (A2UI + Open‑JSON‑UI)
@@ -131,7 +129,61 @@ Two common declarative specifications used for Generative UI are A2UI and Open-J
 
 2) [Open‑JSON‑UI](https://docs.copilotkit.ai/generative-ui/specs/open-json-ui) → open standardization of OpenAI’s internal declarative Generative UI schema
 
-For example, an agent can respond with an Open‑JSON‑UI payload that describes a UI “card” in JSON and the frontend renders it.
+Let's first understand the basic flow of how to implement A2UI. 
+
+Instead of writing A2UI JSON by hand, you can use the [A2UI Composer](https://a2ui-composer.ag-ui.com/) to generate the spec for you. Copy the output and paste it into your agent’s prompt as a reference template.
+
+<img width="1358" height="608" alt="A2UI Composer" src="https://github.com/user-attachments/assets/b814f27e-bb0b-4389-b739-2e1ea13f4b57" />
+
+In `prompt_builder.py`, add one A2UI JSONL example so the agent learns the three message envelopes A2UI expects: `surfaceUpdate` (components), `dataModelUpdate` (state), then `beginRendering` (render signal).
+
+```python
+UI_EXAMPLES = """
+---BEGIN FORM_EXAMPLE---
+{"surfaceUpdate":{"surfaceId":"form-surface","components":[ ... ]}}
+{"dataModelUpdate":{"surfaceId":"form-surface","path":"/","contents":[ ... ]}}
+{"beginRendering":{"surfaceId":"form-surface","root":"form-column","styles":{ ... }}}
+---END FORM_EXAMPLE---
+"""
+```
+
+Inject `UI_EXAMPLES` into the agent instruction so it can output valid A2UI message lines when a UI is requested.
+
+```python
+instruction = AGENT_INSTRUCTION + get_ui_prompt(self.base_url, UI_EXAMPLES)
+
+return LlmAgent(
+    model=LiteLlm(model=LITELLM_MODEL),
+    name="ui_generator_agent",
+    description="Generates dynamic UI via A2UI declarative JSON.",
+    instruction=instruction,
+    tools=[],
+)
+```
+
+Final step: on the frontend, pass `createA2UIMessageRenderer(...)` into `renderActivityMessages` so CopilotKit renders streamed A2UI output as UI and forwards UI actions back to the agent.
+
+```typescript
+import { CopilotKitProvider, CopilotSidebar } from "@copilotkitnext/react";
+import { createA2UIMessageRenderer } from "@copilotkit/a2ui-renderer";
+import { a2uiTheme } from "../theme";
+
+const A2UIRenderer = createA2UIMessageRenderer({ theme: a2uiTheme });
+
+export function A2UIPage({ children }: { children: React.ReactNode }) {
+  return (
+    <CopilotKitProvider
+      runtimeUrl="/api/copilotkit-a2ui"
+      renderActivityMessages={[A2UIRenderer]}   // ← hook in the A2UI renderer
+    >
+      {children}
+      <CopilotSidebar defaultOpen labels={{ modalHeaderTitle: "A2UI Assistant" }} />
+    </CopilotKitProvider>
+  );
+}
+```
+
+The pattern is the same for Open‑JSON‑UI. An agent can respond with an Open‑JSON‑UI payload that describes a UI “card” in JSON and the frontend renders it.
 
 ```js
 // Example (illustrative): Agent returns a declarative Open-JSON-UI–style specification
