@@ -69,7 +69,7 @@ The rest of this repo walks through each pattern from most constrained to most o
 
 # The 3 Types of Generative UI
 
-## Static Generative UI (AG-UI)
+## 1. Static Generative UI (AG-UI)
 
 <img width="977" height="548" alt="Static Generative UI example" src="assets/static-generative-ui-example.png" />
 
@@ -117,7 +117,7 @@ useFrontendTool({
 
 ---
 
-## Declarative Generative UI (A2UI + Open‑JSON‑UI)
+## 2. Declarative Generative UI (A2UI + Open‑JSON‑UI)
 
 <img width="963" height="532" alt="Declarative Generative UI overview" src="assets/declarative-generative-ui-overview.png" />
 
@@ -214,7 +214,7 @@ The pattern is the same for Open‑JSON‑UI. An agent can respond with an Open�
 
 ---
 
-## Open-ended Generative UI (MCP Apps)
+## 3. Open-ended Generative UI (MCP Apps)
 
 <img width="970" height="545" alt="Open-ended Generative UI example" src="assets/open-ended-generative-ui-mcp-apps.png" />
 
