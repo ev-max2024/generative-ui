@@ -54,7 +54,7 @@ Instead of only generating text, agents can send UI state, structured UI specs, 
 In the CopilotKit ecosystem, Generative UI is approached in three practical patterns, implemented using different agentic UI protocols and specifications that define how agents communicate UI updates to applications:
 
 - Controlled Generative UI (high control, low freedom) → AG-UI
-- Declarative Generative UI (shared control) → [A2UI](https://docs.copilotkit.ai/generative-ui/specs/a2ui), [Open-JSON-UI](https://docs.copilotkit.ai/generative-ui/specs/open-json-ui)
+- Declarative Generative UI (shared control) → [A2UI](https://docs.copilotkit.ai/learn/generative-ui/specs/a2ui), [Open-JSON-UI](https://docs.copilotkit.ai/learn/generative-ui/specs/open-json-ui)
 - Open-ended Generative UI (low control, high freedom) → [MCP Apps](https://docs.copilotkit.ai/generative-ui/specs/mcp-apps) / Custom UIs
 
 [AG-UI (Agent-User Interaction Protocol)](https://github.com/ag-ui-protocol/ag-ui) serves as the bidirectional runtime interaction layer beneath these patterns, providing the agent ↔ application connection that enables Generative UI and works uniformly across A2UI, MCP Apps, Open-JSON-UI, and custom UI specifications.
@@ -112,7 +112,7 @@ useFrontendTool({
 
 - Try it out: [go.copilotkit.ai/gen-ui-demo](https://go.copilotkit.ai/gen-ui-demo)
 - Docs: [docs.copilotkit.ai/generative-ui](https://docs.copilotkit.ai/generative-ui)
-- Specs hub (overview): [docs.copilotkit.ai/generative-ui/specs](https://docs.copilotkit.ai/generative-ui/specs)
+- Specs hub (overview): [docs.copilotkit.ai/learn/generative-ui/specs](https://docs.copilotkit.ai/learn/generative-ui/specs)
 - Ecosystem (how specs + runtime fit): [copilotkit.ai/generative-ui](https://www.copilotkit.ai/generative-ui)
 
 ---
@@ -127,7 +127,7 @@ Two common declarative specifications used for Generative UI are A2UI and Open-J
 
 1. [A2UI](https://github.com/google/A2UI) → declarative Generative UI spec from Google, described as JSONL-based and streaming, designed for platform-agnostic rendering
 
-2. [Open‑JSON‑UI](https://docs.copilotkit.ai/generative-ui/specs/open-json-ui) → open standardization of OpenAI’s internal declarative Generative UI schema
+2. [Open‑JSON‑UI](https://docs.copilotkit.ai/learn/generative-ui/specs/open-json-ui) → open standardization of OpenAI’s internal declarative Generative UI schema
 
 Let's first understand the basic flow of how to implement A2UI.
 
@@ -207,9 +207,9 @@ The pattern is the same for Open‑JSON‑UI. An agent can respond with an Open�
 
 - Try it out: [go.copilotkit.ai/gen-ui-demo](https://go.copilotkit.ai/gen-ui-demo)
 - Docs: [docs.copilotkit.ai/generative-ui](https://docs.copilotkit.ai/generative-ui)
-- Open‑JSON‑UI Specs (CopilotKit docs): [docs.copilotkit.ai/generative-ui/specs/open-json-ui](https://docs.copilotkit.ai/generative-ui/specs/open-json-ui)
-- A2UI Specs (CopilotKit docs): [docs.copilotkit.ai/generative-ui/specs/a2ui](https://docs.copilotkit.ai/generative-ui/specs/a2ui)
-- Ecosystem (how specs + runtime fit): https://www.copilotkit.ai/generative-ui
+- Open‑JSON‑UI Specs (CopilotKit docs): [docs.copilotkit.ai/learn/generative-ui/specs/open-json-ui](https://docs.copilotkit.ai/learn/generative-ui/specs/open-json-ui)
+- A2UI Specs (CopilotKit docs): [docs.copilotkit.ai/learn/generative-ui/specs/a2ui](https://docs.copilotkit.ai/learn/generative-ui/specs/a2ui)
+- Ecosystem (how specs + runtime fit): [copilotkit.ai/generative-ui](https://www.copilotkit.ai/generative-ui)
 - How AG‑UI and A2UI fit together: [copilotkit.ai/ag-ui-and-a2ui](https://www.copilotkit.ai/ag-ui-and-a2ui)
 
 ---
@@ -246,7 +246,7 @@ const agent = new BuiltInAgent({
 
 - Try it out: [go.copilotkit.ai/gen-ui-demo](https://go.copilotkit.ai/gen-ui-demo)
 - Docs: [docs.copilotkit.ai/generative-ui](https://docs.copilotkit.ai/generative-ui)
-- MCP Apps spec: [docs.copilotkit.ai/generative-ui/specs/mcp-apps](https://docs.copilotkit.ai/generative-ui/specs/mcp-apps)
+- MCP Apps spec: [docs.copilotkit.ai/learn/generative-ui/specs/mcp-apps](https://docs.copilotkit.ai/learn/generative-ui/specs/mcp-apps)
 - Practical guide (complete integration flow): [Bring MCP Apps into your OWN app with CopilotKit & AG-UI](https://www.copilotkit.ai/blog/bring-mcp-apps-into-your-own-app-with-copilotkit-and-ag-ui)
 
 ---
@@ -283,6 +283,7 @@ https://github.com/user-attachments/assets/f2f52fae-c9c6-4da5-8d29-dc99b202a7ad
 - [What is Agentic AI and How Does it Work?](https://www.youtube.com/watch?v=15_pppse4fY)
 
 ## Additional Resources
+
 - [Agentic Protocols Landscape](https://go.copilotkit.ai/protocols)
 - [Generative UI PDF Download](https://go.copilotkit.ai/generative-ui-pdf-guide)
 - [12 Dos and Donts for Building Agentic Applications](https://go.copilotkit.ai/dos-donts)
