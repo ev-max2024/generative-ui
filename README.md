@@ -26,9 +26,12 @@
 
 - [What is Generative UI?](#what-is-generative-ui)
 - [The 3 types of Generative UI](#the-3-types-of-generative-ui)
-  - [Controlled Generative UI (AG-UI)](#controlled-generative-ui-ag-ui)
-  - [Declarative Generative UI (A2UI + Open-JSON-UI)](#declarative-generative-ui-a2ui--openjsonui)
-  - [Open-ended Generative UI (MCP Apps)](#open-ended-generative-ui-mcp-apps)
+  - [Controlled Generative UI (AG-UI)](#1-controlled-generative-ui-ag-ui)
+  - [Declarative Generative UI (A2UI + Open-JSON-UI)](#2-declarative-generative-ui-a2ui--openjsonui)
+  - [Open-ended Generative UI (MCP Apps)](#3-open-ended-generative-ui-mcp-apps)
+    - [Real-world example: Excalidraw MCP Apps](#real-world-example-excalidraw-mcp-apps)
+  - [Open Generative UI (useComponent)](#4-open-generative-ui-usecomponent)
+
 - [Generative UI Playground](#generative-ui-playground)
 - [Blogs](#blogs)
 - [Videos](#videos)
@@ -77,7 +80,7 @@ Controlled Generative UI means you pre-build UI components, and the agent choose
 
 This is the most controlled approach: you own the layout, styling, and interaction patterns, while the agent controls when and which UI appears.
 
-In CopilotKit, this pattern is implemented using the `useFrontendTool` hook, which lets the application register the `get_weather` tool and define how predefined React UI is rendered across each phase of the tool’s execution lifecycle.
+In CopilotKit, this pattern is implemented using the `useFrontendTool` hook, which lets the application register the `get_weather` tool and define how the predefined React UI is rendered across each phase of the tool’s execution lifecycle.
 
 ```typescript
 // Weather tool - callable tool that displays weather data in a styled card
@@ -229,15 +232,15 @@ import { BuiltInAgent } from "@copilotkit/runtime/v2";
 import { MCPAppsMiddleware } from "@ag-ui/mcp-apps-middleware";
 
 const agent = new BuiltInAgent({
-  model: "openai/gpt-4o",
+  model: "openai/gpt-5.2",
   prompt: "You are a helpful assistant.",
 }).use(
   new MCPAppsMiddleware({
     mcpServers: [
       {
         type: "http",
-        url: "http://localhost:3108/mcp",
-        serverId: "my-server", // Recommended: stable identifier
+        url: "https://mcp.excalidraw.com/mcp", // or your local server: http://localhost:3001/mcp
+        serverId: "my-server",
       },
     ],
   }),
@@ -249,11 +252,101 @@ const agent = new BuiltInAgent({
 - MCP Apps spec: [docs.copilotkit.ai/learn/generative-ui/specs/mcp-apps](https://docs.copilotkit.ai/learn/generative-ui/specs/mcp-apps)
 - Practical guide (complete integration flow): [Bring MCP Apps into your OWN app with CopilotKit & AG-UI](https://www.copilotkit.ai/blog/bring-mcp-apps-into-your-own-app-with-copilotkit-and-ag-ui)
 
+### Real-world example: Excalidraw MCP Apps
+
+We built an MCP-powered AI diagramming app with CopilotKit and a modified [Excalidraw MCP server](https://github.com/excalidraw/excalidraw-mcp). Describe anything in chat and get a fully editable Excalidraw diagram back in seconds.
+
+The full CopilotKit runtime setup in `src/app/api/copilotkit/route.ts`:
+
+```typescript
+import {
+  CopilotRuntime,
+  ExperimentalEmptyAdapter,
+  copilotRuntimeNextJSAppRouterEndpoint,
+} from "@copilotkit/runtime";
+import { BuiltInAgent } from "@copilotkit/runtime/v2";
+import { NextRequest } from "next/server";
+import { MCPAppsMiddleware } from "@ag-ui/mcp-apps-middleware";
+
+const agent = new BuiltInAgent({
+  model: "openai/gpt-5",
+  prompt: `You are an AI diagramming assistant powered by Excalidraw...`, // full prompt in repo
+}).use(
+  new MCPAppsMiddleware({
+    mcpServers: [
+      {
+        type: "http",
+        url: process.env.MCP_SERVER_URL ?? "http://localhost:3001/mcp",
+        serverId: "excalidraw",
+      },
+    ],
+  }),
+);
+
+const serviceAdapter = new ExperimentalEmptyAdapter();
+
+const runtime = new CopilotRuntime({
+  agents: {
+    default: agent,
+  },
+});
+
+export const POST = async (req: NextRequest) => {
+  const { handleRequest } = copilotRuntimeNextJSAppRouterEndpoint({
+    runtime,
+    serviceAdapter,
+    endpoint: "/api/copilotkit",
+  });
+
+  return handleRequest(req);
+};
+```
+
+The agent calls `create_view` on the MCP server with a JSON array of Excalidraw elements and CopilotKit renders that iframe directly in chat via the MCP Apps protocol. We extended the original Excalidraw MCP server with a checkpoint store, REST workspace endpoints, streaming, and widget buttons. Every diagram auto-saves to disk and opens as a full editable canvas. One click pushes any diagram live to Excalidraw straight from chat.
+
+- Repo: [github.com/CopilotKit/excalidraw-studio](https://github.com/CopilotKit/excalidraw-studio)
+- Excalidraw MCP server: [github.com/excalidraw/excalidraw-mcp](https://github.com/excalidraw/excalidraw-mcp)
+
+https://github.com/user-attachments/assets/18dd56de-6f14-4a1d-b743-52fccf145bbe
+
+---
+
+## 4. Open Generative UI (useComponent)
+
+[OpenGenerativeUI](https://github.com/CopilotKit/OpenGenerativeUI) is an open source showcase for building rich, interactive UI with CopilotKit and LangGraph. It uses the same open-ended philosophy as MCP Apps but with a different architecture.
+
+Instead of connecting to an external MCP server, a LangGraph agent generates raw HTML/SVG/Canvas directly, and `useComponent` on the frontend receives it as a named tool call and renders it in a themed, sandboxed iframe. The agent can produce algorithm visualizations, 3D animations (Three.js, WebGL), charts, interactive simulations, math plots, D3 force layouts, and more, anything expressible as self-contained HTML.
+
+```typescript
+import { useComponent } from "@copilotkit/react-core/v2";
+import {
+  WidgetRenderer,
+  WidgetRendererProps,
+} from "@/components/generative-ui/widget-renderer";
+
+// Register a named component: the agent calls "widgetRenderer" with
+// { title, description, html } and the frontend renders it in a sandboxed iframe
+useComponent({
+  name: "widgetRenderer",
+  description:
+    "Renders interactive HTML/SVG visualizations in a sandboxed iframe. " +
+    "Use for algorithm visualizations, diagrams, widgets, and simulations.",
+  parameters: WidgetRendererProps,
+  render: WidgetRenderer,
+});
+```
+
+**How `useComponent` differs from MCP Apps**: with MCP Apps, the agent calls a tool on a remote server and the server returns an iframe URL. The heavy lifting is server-side. With `useComponent`, the agent generates the content directly (HTML string) and passes it through the tool call itself. No server round-trip, no URL, just structured output that the frontend component renders however it wants.
+
+- Repo: [github.com/CopilotKit/OpenGenerativeUI](https://github.com/CopilotKit/OpenGenerativeUI)
+
+https://github.com/user-attachments/assets/ed28c734-e54e-4412-873f-4801da544a7f
+
 ---
 
 ## Generative UI Playground
 
-The Generative UI Playground is a hands-on environment for exploring how all three patterns work in practice and see how agent outputs map to UI in real time.
+The Generative UI Playground is a hands-on environment for exploring how all three patterns work in practice and seeing how agent outputs map to UI in real time.
 
 - Try it out: [go.copilotkit.ai/gen-ui-demo](https://go.copilotkit.ai/gen-ui-demo)
 - Repo: [go.copilotkit.ai/gen-ui-repo-playground](https://go.copilotkit.ai/gen-ui-repo-playground)
@@ -262,6 +355,7 @@ https://github.com/user-attachments/assets/f2f52fae-c9c6-4da5-8d29-dc99b202a7ad
 
 ## Blogs
 
+- [The Developer's Guide to Generative UI in 2026](https://www.copilotkit.ai/blog/the-developer-s-guide-to-generative-ui-in-2026) - CopilotKit
 - [Agent Factory: The new era of agentic AI: common use cases and design patterns](https://azure.microsoft.com/en-us/blog/agent-factory-the-new-era-of-agentic-ai-common-use-cases-and-design-patterns/) - By Microsoft Azure
 - [Agentic AI vs AI Agents: A Deep Dive](https://uibakery.io/blog/agentic-ai-vs-ai-agents) - UI Bakery
 - [Introducing Agentic UI Interfaces: A Tactical Executive Guide](https://akfpartners.com/growth-blog/introducing-agentic-ui-interfaces-a-tactical-executive-guide) - AKF Partners
@@ -296,9 +390,11 @@ Contributions welcome: PRs adding examples (Controlled/Declarative/Open‑ended)
 
 [Discord](https://discord.com/invite/6dffbvGU3D) for help and discussions. [GitHub](https://github.com/CopilotKit/CopilotKit) to contribute. [@CopilotKit](https://x.com/copilotkit) for updates.
 
-| Project                  | Preview                                                                                                    | Description                                                         | Links                                                                                           |
-| ------------------------ | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Generative UI Playground | <img src="assets/generative-ui-playground-preview.png" alt="Generative UI playground preview" width="300"> | Shows the three Gen UI patterns with runnable, end-to-end examples. | [Repo](https://go.copilotkit.ai/gen-ui-repo-playground)<br>[Demo](go.copilotkit.ai/gen-ui-demo) |
+| Project                   | Preview                                                                                                                                   | Description                                                                                                                           | Links                                                                                            |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Open Generative UI        | <img src="assets/open-generative-ui-preview.png" alt="Open Generative UI preview" width="300">                                            | Open-ended generative UI: agent generates HTML/SVG visuals rendered in sandboxed iframes, no MCP server needed.                       | [Repo](https://github.com/CopilotKit/OpenGenerativeUI)                                           |
+| Generative UI Playground  | <img src="assets/generative-ui-playground-preview.png" alt="Generative UI playground preview" width="300">                                | Shows the three Gen UI patterns with runnable, end-to-end examples.                                                                   | [Repo](https://go.copilotkit.ai/gen-ui-repo-playground)<br>[Demo](go.copilotkit.ai/gen-ui-demo)  |
+| Excalidraw MCP App        | <img src="assets/excalidraw-mcp-app-preview.png" alt="Excalidraw MCP app preview" width="300">                                            | Describe anything, get a fully editable Excalidraw diagram in chat via MCP Apps.                                                      | [Repo](https://github.com/CopilotKit/excalidraw-studio)                                          |
 
 Built something? [Open a PR](https://github.com/CopilotKit/CopilotKit/pulls) or [share it in Discord](https://discord.com/invite/6dffbvGU3D).
 
