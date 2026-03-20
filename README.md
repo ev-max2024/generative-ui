@@ -38,11 +38,13 @@
 - [Additional Resources](#additional-resources)
 - [Contributing](#-contributions-are-welcome)
 
-https://github.com/user-attachments/assets/f2f52fae-c9c6-4da5-8d29-dc99b202a7ad
+https://github.com/user-attachments/assets/ed28c734-e54e-4412-873f-4801da544a7f
 
 <br />
 
 This repository walks through how agentic UI protocols (AG-UI, A2UI, MCP Apps) enable Generative UI patterns (Controlled, Declarative, Open-ended) and how to implement them using CopilotKit.
+
+👉 [OpenGenerativeUI](https://github.com/CopilotKit/OpenGenerativeUI) - Open source framework for building Generative UI in agentic apps <a href="https://github.com/CopilotKit/OpenGenerativeUI"><img alt="GitHub stars" src="https://img.shields.io/github/stars/CopilotKit/OpenGenerativeUI" /></a>
 
 👉 [Generative UI Guide (PDF)](assets/generative-ui-guide.pdf) - a conceptual overview of Generative UI, focused on trade-offs, UI surfaces and how agentic UI protocols work together.
 
@@ -56,7 +58,7 @@ Instead of only generating text, agents can send UI state, structured UI specs, 
 
 In the CopilotKit ecosystem, Generative UI is approached in three practical patterns, implemented using different agentic UI protocols and specifications that define how agents communicate UI updates to applications:
 
-- Controlled Generative UI (high control, low freedom) → AG-UI
+- Controlled Generative UI (high control, low freedom) → [AG-UI](https://github.com/ag-ui-protocol/ag-ui)
 - Declarative Generative UI (shared control) → [A2UI](https://docs.copilotkit.ai/learn/generative-ui/specs/a2ui), [Open-JSON-UI](https://docs.copilotkit.ai/learn/generative-ui/specs/open-json-ui)
 - Open-ended Generative UI (low control, high freedom) → [MCP Apps](https://docs.copilotkit.ai/generative-ui/specs/mcp-apps) / Custom UIs
 
@@ -186,6 +188,10 @@ export function A2UIPage({ children }: { children: React.ReactNode }) {
 }
 ```
 
+Here is a calendar demo using A2UI and Agent Spec.
+
+https://github.com/user-attachments/assets/48158b9d-188d-42d1-835b-32d7425cc43a
+
 The pattern is the same for Open‑JSON‑UI. An agent can respond with an Open‑JSON‑UI payload that describes a UI “card” in JSON and the frontend renders it.
 
 ```js
@@ -212,6 +218,7 @@ The pattern is the same for Open‑JSON‑UI. An agent can respond with an Open�
 - Docs: [docs.copilotkit.ai/generative-ui](https://docs.copilotkit.ai/generative-ui)
 - Open‑JSON‑UI Specs (CopilotKit docs): [docs.copilotkit.ai/learn/generative-ui/specs/open-json-ui](https://docs.copilotkit.ai/learn/generative-ui/specs/open-json-ui)
 - A2UI Specs (CopilotKit docs): [docs.copilotkit.ai/learn/generative-ui/specs/a2ui](https://docs.copilotkit.ai/learn/generative-ui/specs/a2ui)
+- Example (A2UI + Agent Spec): [github.com/CopilotKit/with-agent-spec](https://github.com/CopilotKit/with-agent-spec)
 - Ecosystem (how specs + runtime fit): [copilotkit.ai/generative-ui](https://www.copilotkit.ai/generative-ui)
 - How AG‑UI and A2UI fit together: [copilotkit.ai/ag-ui-and-a2ui](https://www.copilotkit.ai/ag-ui-and-a2ui)
 
@@ -219,7 +226,7 @@ The pattern is the same for Open‑JSON‑UI. An agent can respond with an Open�
 
 ## 3. Open-ended Generative UI (MCP Apps)
 
-<img width="970" height="545" alt="Open-ended Generative UI example" src="assets/open-ended-generative-ui-mcp-apps.png" />
+https://github.com/user-attachments/assets/48eeab8d-7845-4d06-83ef-d518a807da03
 
 Open-ended Generative UI is when the agent returns a complete UI surface (often HTML/iframes/free-form content), and the frontend mostly serves as a container to display it.
 
@@ -248,6 +255,7 @@ const agent = new BuiltInAgent({
 ```
 
 - Try it out: [go.copilotkit.ai/gen-ui-demo](https://go.copilotkit.ai/gen-ui-demo)
+- Playground Repo: [examples/showcases/mcp-apps](https://github.com/CopilotKit/CopilotKit/tree/main/examples/showcases/mcp-apps)
 - Docs: [docs.copilotkit.ai/generative-ui](https://docs.copilotkit.ai/generative-ui)
 - MCP Apps spec: [docs.copilotkit.ai/learn/generative-ui/specs/mcp-apps](https://docs.copilotkit.ai/learn/generative-ui/specs/mcp-apps)
 - Practical guide (complete integration flow): [Bring MCP Apps into your OWN app with CopilotKit & AG-UI](https://www.copilotkit.ai/blog/bring-mcp-apps-into-your-own-app-with-copilotkit-and-ag-ui)
@@ -365,6 +373,7 @@ https://github.com/user-attachments/assets/f2f52fae-c9c6-4da5-8d29-dc99b202a7ad
 - [The State of Agentic UI: Comparing AG-UI, MCP-UI, and A2A Protocols](https://www.copilotkit.ai/blog/the-state-of-agentic-ui-comparing-ag-ui-mcp-ui-and-a2ui-protocols) - CopilotKit
 - [The Three Types of Generative UI: Controlled, Declarative and Fully Generated](https://www.copilotkit.ai/blog/the-three-kinds-of-generative-ui) - CopilotKit
 - [Generative UI Guide 2025: 15 Best Practices & Examples](https://www.mockplus.com/blog/post/gui-guide) - Mockplus
+- [Developer's Guide to AI Agent Protocols](https://developers.googleblog.com/developers-guide-to-ai-agent-protocols/) - Google Developers
 
 ## Videos
 
@@ -372,6 +381,7 @@ https://github.com/user-attachments/assets/f2f52fae-c9c6-4da5-8d29-dc99b202a7ad
 - [Agentic AI Explained So Anyone Can Get It!](https://www.youtube.com/watch?v=Jj1-zb38Yfw)
 - [Generative vs Agentic AI: Shaping the Future of AI Collaboration](https://www.youtube.com/watch?v=EDb37y_MhRw)
 - [Generative UI: Specs, Patterns, and the Protocols Behind Them (MCP Apps, A2UI, AG-UI)](https://www.youtube.com/watch?v=Z4aSGCs_O5A)
+- [ASP.NET Community Standup - Build agentic UI with AG-UI and Blazor](https://www.youtube.com/watch?v=4CrxcdNbRFY)
 - [The Dojo: Agentic Building Blocks for Your UI](https://youtu.be/HlILkXpGYQc)
 - [What is Agentic AI? An Easy Explanation For Everyone](https://www.youtube.com/watch?v=-pqzyvRp3Tc)
 - [What is Agentic AI and How Does it Work?](https://www.youtube.com/watch?v=15_pppse4fY)
